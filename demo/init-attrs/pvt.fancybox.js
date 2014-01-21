@@ -40,6 +40,11 @@ PVT.fancybox = {};
                 overlay : obj.helpers.overlay,
                 css: {}
             },
+            swf: {
+                wmode: 'transparent',
+                allowfullscreen: 'true',
+                allowscriptaccess: 'always'
+            },
             beforeShow: function () {
 
             },
