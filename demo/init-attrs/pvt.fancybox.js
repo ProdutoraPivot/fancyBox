@@ -55,14 +55,14 @@ PVT.fancybox = {};
             },
             tpl: {
                 wrap: '<div class="fancybox-wrap" tabIndex="-1"><div class="fancybox-skin"><div class="fancybox-outer"><div class="fancybox-inner"></div></div></div></div>',
-                image: '<img class="fancybox-image" src="{href}" alt="" />',
+                image: '<img class="fancybox-image" src="{href}" alt="">',
                 error: '<p class="fancybox-error">O conteúdo solicitado não pode ser carregado.</p>',
                 closeBtn: '<a title="Fechar" class="fancybox-close" href="javascript:;"></a>',
                 next: '<a title="Próxima" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
                 prev: '<a title="Anterior" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
             },
             type: 'inline',
-            width:  500,
+            width:  500
         },
         obj = $.extend({}, options, args);
 
