@@ -1,172 +1,73 @@
-$(document).ready(function() {
-    /*
-     *  Simple image gallery. Uses default settings
-     */
+// check isset
+var PVT = PVT || {};
 
-    $('.fancybox').fancybox();
+// module name
+PVT.fancybox = {};
 
-    /*
-     *  Different effects
-     */
+(function (window, document, $, undefined) {
+    'use strict';
 
-    // Change title type, overlay closing speed
-    $(".fancybox-effects-a").fancybox({
-        helpers: {
-            title : {
-                type : 'outside'
+    PVT.fancybox.open = function (url, args, callback) {
+        var options = {
+            afterClose: function() {},
+            afterShow: function() {},
+            autoSize: false,
+            beforeShow: function () {
+                $('.fancybox-skin').css({
+                    //'border-radius': 0
+                });
             },
-            overlay : {
-                speedOut : 0
-            }
-        }
-    });
-
-    // Disable opening and closing animations, change title type
-    $(".fancybox-effects-b").fancybox({
-        openEffect  : 'none',
-        closeEffect : 'none',
-
-        helpers : {
-            title : {
-                type : 'over'
-            }
-        }
-    });
-
-    // Set custom style, close if clicked, change title type and overlay color
-    $(".fancybox-effects-c").fancybox({
-        wrapCSS    : 'fancybox-custom',
-        closeClick : true,
-
-        openEffect : 'none',
-
-        helpers : {
-            title : {
-                type : 'inside'
+            closeClick: false,
+            closeEffect: 'fade', // fade/elastic
+            fitToView: true, // if set to true, fancyBox is resized to fit inside viewport before opening
+            height: 300,
+            helpers: {
+                overlay : true,
+                css: {}
             },
-            overlay : {
-                css : {
-                    'background' : 'rgba(238,238,238,0.85)'
-                }
-            }
-        }
-    });
-
-    // Remove padding, set opening and closing animations, close if clicked and disable overlay
-    $(".fancybox-effects-d").fancybox({
-        padding: 0,
-
-        openEffect : 'elastic',
-        openSpeed  : 150,
-
-        closeEffect : 'elastic',
-        closeSpeed  : 150,
-
-        closeClick : true,
-
-        helpers : {
-            overlay : null
-        }
-    });
-
-    /*
-     *  Button helper. Disable animations, hide close button, change title type and content
-     */
-
-    $('.fancybox-buttons').fancybox({
-        openEffect  : 'none',
-        closeEffect : 'none',
-
-        prevEffect : 'none',
-        nextEffect : 'none',
-
-        closeBtn  : false,
-
-        helpers : {
-            title : {
-                type : 'inside'
+            href: url,
+            keys: {
+                next: {
+                    13: 'left', // enter
+                    34: 'up',   // page down
+                    39: 'left', // right arrow
+                    40: 'up'    // down arrow
+                },
+                prev: {
+                    8: 'right',  // backspace
+                    33: 'down',   // page up
+                    37: 'right',  // left arrow
+                    38: 'down'    // up arrow
+                },
+                close: [27], // escape key
+                play: [32], // space - start/stop slideshow
+                toggle: [70]  // letter "f" - toggle fullscreen
             },
-            buttons : {}
+            margin: 0,
+            openEffect: 'fade', // fade/elastic
+            padding: 0,
+            topRatio: 0.3,
+            swf: {
+                wmode: 'transparent',
+                allowfullscreen: 'true',
+                allowscriptaccess: 'always'
+            },
+            tpl: {
+                wrap: '<div class="fancybox-wrap" tabIndex="-1"><div class="fancybox-skin"><div class="fancybox-outer"><div class="fancybox-inner"></div></div></div></div>',
+                image: '<img class="fancybox-image" src="{href}" alt="">',
+                error: '<p class="fancybox-error">O conteúdo solicitado não pode ser carregado.</p>',
+                closeBtn: '<a title="Fechar" class="fancybox-close" href="javascript:;"></a>',
+                next: '<a title="Próxima" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
+                prev: '<a title="Anterior" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
+            },
+            type: 'inline',
+            width:  500
         },
+        obj = $.extend({}, options, args);
 
-        afterLoad : function() {
-            this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
-        }
-    });
+        $.fancybox.open(obj);
 
+        if (callback) callback();
+    };
 
-    /*
-     *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
-     */
-
-    $('.fancybox-thumbs').fancybox({
-        prevEffect : 'none',
-        nextEffect : 'none',
-
-        closeBtn  : false,
-        arrows    : false,
-        nextClick : true,
-
-        helpers : {
-            thumbs : {
-                width  : 50,
-                height : 50
-            }
-        }
-    });
-
-    /*
-     *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
-    */
-    $('.fancybox-media')
-        .attr('rel', 'media-gallery')
-        .fancybox({
-            openEffect : 'none',
-            closeEffect : 'none',
-            prevEffect : 'none',
-            nextEffect : 'none',
-
-            arrows : false,
-            helpers : {
-                media : {},
-                buttons : {}
-            }
-        });
-
-    /*
-     *  Open manually
-     */
-
-    $("#fancybox-manual-a").click(function() {
-        $.fancybox.open('1_b.jpg');
-    });
-
-    $("#fancybox-manual-b").click(function() {
-        $.fancybox.open({
-            href : 'iframe.html',
-            type : 'iframe',
-            padding : 5
-        });
-    });
-
-    $("#fancybox-manual-c").click(function() {
-        $.fancybox.open([
-            {
-                href : '1_b.jpg',
-                title : 'My title'
-            }, {
-                href : '2_b.jpg',
-                title : '2nd title'
-            }, {
-                href : '3_b.jpg'
-            }
-        ], {
-            helpers : {
-                thumbs : {
-                    width: 75,
-                    height: 50
-                }
-            }
-        });
-    });
-});
+}(this, document, jQuery));
