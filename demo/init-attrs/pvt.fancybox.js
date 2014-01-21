@@ -40,6 +40,23 @@ PVT.fancybox = {};
                 overlay : obj.helpers.overlay,
                 css: {}
             },
+            keys: {
+                next: {
+                    13: 'left', // enter
+                    34: 'up',   // page down
+                    39: 'left', // right arrow
+                    40: 'up'    // down arrow
+                },
+                prev: {
+                    8: 'right',  // backspace
+                    33: 'down',   // page up
+                    37: 'right',  // left arrow
+                    38: 'down'    // up arrow
+                },
+                close: [27], // escape key
+                play: [32], // space - start/stop slideshow
+                toggle: [70]  // letter "f" - toggle fullscreen
+            }
             swf: {
                 wmode: 'transparent',
                 allowfullscreen: 'true',
