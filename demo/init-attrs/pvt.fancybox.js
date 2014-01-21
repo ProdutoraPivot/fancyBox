@@ -23,7 +23,6 @@ PVT.fancybox = {};
             height: 300,
             helpers: {
                 overlay : true,
-                locked: false,
                 css: {}
             },
             href: url,
