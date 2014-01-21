@@ -9,23 +9,36 @@ PVT.fancybox = {};
 
     PVT.fancybox.open = function (url, args, undefined) {
         var options = {
-            width: 500,
-            height: 300
-        };
-
-        var obj = $.extend({}, options, args);
+            width:  500,
+            height: 300,
+            type: 'inline',
+            autoSize: false,
+            padding: 0,
+            helpers: {
+                overlay : true,
+                locked: false
+            }
+        },
+        obj = $.extend({}, options, args);
 
         $.fancybox.open({
-            href        : url,
-            width       : obj.width,
-            height      : obj.height,
-            autoSize    : false,
-            type        : 'inline',
-            padding     : 0,
-            openEffect  : 'none',
-            closeEffect : 'none',
+            href: url,
+            width: obj.width,
+            height: obj.height,
+            autoSize: obj.autoSize,
+            type: obj.type,
+            padding: obj.padding,
             tpl: {
-                closeBtn: '<a title="Fechar" class="fancybox-close" href="#"></a>'
+                wrap: '<div class="fancybox-wrap" tabIndex="-1"><div class="fancybox-skin"><div class="fancybox-outer"><div class="fancybox-inner"></div></div></div></div>',
+                image: '<img class="fancybox-image" src="{href}" alt="" />',
+                error: '<p class="fancybox-error">O conteúdo solicitado não pode ser carregado.</p>',
+                closeBtn: '<a title="Fechar" class="fancybox-close" href="javascript:;"></a>',
+                next: '<a title="Próxima" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
+                prev: '<a title="Anterior" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
+            },
+            helpers: {
+                overlay : obj.helpers.overlay,
+                css: {}
             },
             beforeShow: function () {
 
